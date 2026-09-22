@@ -2,8 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-@AGENTS.md
-
 ## Project overview
 
 Naya is Syntesa's knowledge base system: a Next.js app with a [Keystatic](https://keystatic.com) CMS backend. Content (MDX docs) is authored through the Keystatic admin UI at `/keystatic` and persisted via GitHub storage to a separate content repo, [`wearesyntesa/naya-storage`](https://github.com/wearesyntesa/naya-storage) — not committed to this repo.
@@ -45,4 +43,6 @@ Without valid GitHub App credentials, the Keystatic admin UI (`/keystatic`) cann
 ## CI/CD
 
 - **CI** (`.github/workflows/ci.yml`): on push/PR to `main`, installs with pnpm, runs `pnpm lint`, then `pnpm build`.
-- **CD** (`.github/workflows/cd.yml`): triggered after CI succeeds on `main`, builds and deploys to Vercel via the Vercel CLI using `VERCEL_TOKEN`/`VERCEL_ORG_ID`/`VERCEL_PROJECT_ID` secrets.
+- **CD** (`.github/workflows/cd.yml`): triggered via `workflow_run` after CI succeeds on a `push` to `main` (also runnable via `workflow_dispatch`), builds and deploys to Vercel via the Vercel CLI using `VERCEL_TOKEN`/`VERCEL_ORG_ID`/`VERCEL_PROJECT_ID` secrets. It checks out `workflow_run.head_sha` rather than `main` HEAD, so a later push can't be deployed in place of the commit CI actually validated.
+- **`vercel.json`** sets `git.deploymentEnabled.main = false`. This is what makes the CI gate real: without it Vercel's GitHub integration deploys straight off the push webhook, in parallel with CI and regardless of its result. Production now deploys only through the CD workflow's CLI call; preview deploys on other branches and PRs are unaffected.
+- `vercel build` in CD reads env vars from the Vercel project's Production environment (via `vercel pull`), **not** from the GitHub secrets `ci.yml` uses — the Keystatic/site variables must be set in both places.
