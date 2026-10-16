@@ -19,7 +19,16 @@ export default config({
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
         content: fields.mdx({ label: "Content" }),
+        visibility: fields.select({
+          label: "Visibility",
+          options: [
+            { label: "Internal (Syntesa members)", value: "internal" },
+            { label: "External (anyone with link)", value: "external" },
+          ],
+          defaultValue: "internal",
+        }),
       },
+      columns: ["title", "visibility"],
     }),
   },
 });
