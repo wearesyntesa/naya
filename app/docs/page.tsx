@@ -1,1 +1,1 @@
-export default async function DocsPage() {}
+export default function DocsPage() {}

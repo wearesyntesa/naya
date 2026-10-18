@@ -27,7 +27,7 @@ export default function Home() {
             href="/keystatic"
             target="_blank"
             rel="noopener noreferrer"
-            className="group text-[0.875rem] p-1.5 px-4 flex items-center justify-center gap-1.5 rounded-md border border-neutral-50/20 bg-indigo-600 dark:bg-indigo-800 text-white transition-colors duration-300 hover:bg-indigo-700 dark:hover:bg-indigo-900/70 font-medium w-full sm:w-auto"
+            className="group text-[0.875rem] p-1.5 px-4 flex items-center justify-center gap-1.5 rounded-md border border-neutral-50/20 bg-blue-600 dark:bg-blue-800 text-white transition-colors duration-300 hover:bg-blue-700 dark:hover:bg-blue-900/70 font-medium w-full sm:w-auto"
           >
             Go to Dashboard
           </Link>
