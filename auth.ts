@@ -6,6 +6,7 @@ const ORG = "wearesyntesa";
 declare module "next-auth" {
   interface Session {
     isMember: boolean;
+    login?: string;
   }
 }
 
@@ -37,14 +38,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile }) {
       if (account?.access_token) {
         token.isMember = await isOrgMember(account.access_token);
+      }
+      if (typeof profile?.login === "string") {
+        token.login = profile.login;
       }
       return token;
     },
     session({ session, token }) {
       session.isMember = token.isMember === true;
+      if (typeof token.login === "string") session.login = token.login;
       return session;
     },
   },

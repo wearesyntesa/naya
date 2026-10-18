@@ -1,4 +1,5 @@
 import { config, fields, collection } from "@keystatic/core";
+import { repeating, wrapper } from "@keystatic/core/content-components";
 
 export default config({
   storage: {
@@ -18,7 +19,9 @@ export default config({
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
-        content: fields.mdx({ label: "Content" }),
+        content: fields.mdx({
+          label: "Content",
+        }),
         visibility: fields.select({
           label: "Visibility",
           options: [

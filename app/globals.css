@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@plugin "@tailwindcss/typography";
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -146,7 +148,9 @@
 
 @keyframes theme-reveal {
   from {
-    clip-path: circle(0px at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%));
+    clip-path: circle(
+      0px at var(--theme-toggle-x, 50%) var(--theme-toggle-y, 50%)
+    );
   }
   to {
     clip-path: circle(
@@ -162,4 +166,72 @@
   ::view-transition-new(root) {
     animation: none !important;
   }
+}
+
+/* MDX docs: heading anchors clear the fixed 3.5rem topbar */
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 5rem;
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* rehype-pretty-code: dual light/dark Shiki themes */
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+}
+
+.dark code[data-theme*=" "],
+.dark code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+}
+
+.prose figure[data-rehype-pretty-code-figure] {
+  margin: 1.5rem 0;
+}
+
+.prose pre {
+  background-color: var(--muted);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  padding-inline: 0;
+}
+
+.prose pre > code {
+  display: grid;
+  background: none;
+  padding: 0;
+}
+
+.prose pre > code > [data-line] {
+  padding-inline: 1rem;
+}
+
+[data-highlighted-line] {
+  background-color: color-mix(in oklch, var(--primary) 12%, transparent);
+  box-shadow: inset 2px 0 0 var(--primary);
+}
+
+[data-rehype-pretty-code-title] {
+  margin-bottom: -1px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem 0.5rem 0 0;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.8rem;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.prose :is(h2, h3) {
+  scroll-margin-top: 5rem;
 }
