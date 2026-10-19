@@ -101,9 +101,6 @@ export function SidebarNav({
         >
           Naya
         </Link>
-        <div className="ml-auto">
-          <UserMenu user={user} showTheme />
-        </div>
       </header>
 
       {drawerOpen && (
@@ -120,7 +117,7 @@ export function SidebarNav({
         className={cn(
           "z-40 flex shrink-0 flex-col overflow-hidden border-r bg-white/70 backdrop-blur-md dark:bg-neutral-950/70",
           "motion-safe:transition-[translate] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.32,0.72,0,1)]",
-          "fixed inset-y-0 left-0 w-72 pt-14",
+          "fixed inset-y-0 left-0 w-72 pt-8",
           drawerOpen ? "translate-x-0" : "-translate-x-full",
           "md:sticky md:top-0 md:bottom-auto md:h-dvh md:translate-x-0 md:w-68 md:self-start md:pt-0",
         )}
@@ -130,7 +127,6 @@ export function SidebarNav({
             href="/"
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              // px-4 puts the wordmark on the same left edge as the doc icons below (6 + 16 = 22px).
               "h-8 px-4 text-sm font-semibold uppercase text-gray-900 dark:text-neutral-100",
             )}
           >
