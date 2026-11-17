@@ -97,9 +97,9 @@ export function SidebarNav({
         </button>
         <Link
           href="/"
-          className="text-sm font-semibold uppercase text-gray-900 dark:text-neutral-100"
+          className="text-sm font-semibold lowercase text-gray-900 dark:text-neutral-100"
         >
-          Naya
+          naya.
         </Link>
       </header>
 
@@ -127,10 +127,10 @@ export function SidebarNav({
             href="/"
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              "h-8 px-4 text-sm font-semibold uppercase text-gray-900 dark:text-neutral-100",
+              "h-8 px-4 text-sm font-semibold lowercase text-gray-900 dark:text-neutral-100",
             )}
           >
-            Naya
+            naya.
           </Link>
         </div>
         <div className="flex h-12 items-center gap-1 px-1.5">
@@ -271,7 +271,7 @@ export function SidebarNav({
         </nav>
 
         <div className="shrink-0 border-t p-1.5">
-          <UserMenu user={user} variant="row" showTheme />
+          <UserMenu user={user} variant="row" />
         </div>
       </aside>
     </>
