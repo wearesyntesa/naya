@@ -1,5 +1,4 @@
 import { config, fields, collection } from "@keystatic/core";
-import { repeating, wrapper } from "@keystatic/core/content-components";
 
 export default config({
   storage: {

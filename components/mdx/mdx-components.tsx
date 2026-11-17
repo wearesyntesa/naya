@@ -36,6 +36,11 @@ export const mdxComponents = {
   ),
   img: (props: ComponentProps<"img">) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img loading="lazy" alt="" {...props} />
+    <img
+      className="inline-block rounded-2xl"
+      loading="lazy"
+      alt=""
+      {...props}
+    />
   ),
 };

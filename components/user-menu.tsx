@@ -7,14 +7,12 @@ import { ChevronsUpDown, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 import { buttonVariants } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/toggle-theme";
 import type { MenuUser } from "@/lib/session-user";
 import { cn } from "@/lib/utils";
 
 type UserMenuProps = Readonly<{
   user: MenuUser | null;
   variant?: "row" | "avatar";
-  showTheme?: boolean;
 }>;
 
 function initials(user: MenuUser) {
@@ -29,7 +27,7 @@ function UserAvatar({
   return (
     <Avatar.Root
       className={cn(
-        "inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-900/10 text-xs font-medium text-neutral-700 select-none dark:bg-white/10 dark:text-neutral-300",
+        "inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-900/10 text-xs font-medium text-neutral-700 select-none",
         className,
       )}
     >
@@ -45,11 +43,7 @@ function UserAvatar({
   );
 }
 
-export function UserMenu({
-  user,
-  variant = "avatar",
-  showTheme = false,
-}: UserMenuProps) {
+export function UserMenu({ user, variant = "avatar" }: UserMenuProps) {
   const isRow = variant === "row";
 
   if (!user) {
@@ -58,13 +52,12 @@ export function UserMenu({
         <Link
           href="/api/auth/signin"
           className={cn(
-            buttonVariants({ variant: "secondary", size: "sm" }),
+            buttonVariants({ variant: "outline" }),
             isRow && "h-8 flex-1",
           )}
         >
           Log in
         </Link>
-        {showTheme && <ThemeToggle />}
       </div>
     );
   }
@@ -78,7 +71,7 @@ export function UserMenu({
         className={cn(
           "flex items-center gap-2.5 rounded-md text-left outline-none transition-colors focus-visible:outline-2 focus-visible:outline-neutral-500",
           isRow
-            ? "h-12 w-full px-1.5 hover:bg-neutral-900/5 data-popup-open:bg-neutral-900/5 dark:hover:bg-white/5 dark:data-popup-open:bg-white/5"
+            ? "h-12 w-full px-1.5 hover:bg-neutral-900/5 data-popup-open:bg-neutral-900/5"
             : "rounded-full",
         )}
       >
@@ -86,7 +79,7 @@ export function UserMenu({
         {isRow && (
           <>
             <span className="min-w-0 flex-1 leading-tight">
-              <span className="block truncate text-[13px] font-medium text-neutral-950 dark:text-neutral-50">
+              <span className="block truncate text-[13px] font-medium text-neutral-950">
                 {label}
               </span>
               {user.email && (
@@ -127,16 +120,10 @@ export function UserMenu({
               </div>
             </div>
             <div className="my-1 h-px bg-border" />
-            {showTheme && (
-              <div className="flex h-10 items-center justify-between pl-2 pr-0.5 text-[13px]">
-                <span>Theme</span>
-                <ThemeToggle />
-              </div>
-            )}
             <button
               type="button"
               onClick={() => signOut({ redirectTo: "/" })}
-              className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-[13px] outline-none transition-colors hover:bg-neutral-900/5 focus-visible:outline-2 focus-visible:outline-neutral-500 dark:hover:bg-white/5"
+              className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-[13px] outline-none transition-colors hover:bg-neutral-900/5 focus-visible:outline-2 focus-visible:outline-neutral-500"
             >
               <LogOut aria-hidden className="size-4" />
               Sign out
